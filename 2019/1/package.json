@@ -1,0 +1,19 @@
+{
+  "name": "1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "promisified-fs": "^1.0.1",
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.14",
+    "@types/ramda": "^0.26.36"
+  }
+}
