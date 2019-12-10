@@ -14,28 +14,21 @@ for y, row in enumerate(rows):
         if marker == '#':
             asteroids.add(x + y * 1j)
 
-def angle(num):
-    num *= np.exp(np.pi / 2 * 1j)
-    return round(np.angle(num), ERROR) % (2 * np.pi)
-
 best_count = 0
 for candidate_station in asteroids:
-    angles = set()
+    field_of_view = defaultdict(lambda: [])
     for optical_target in asteroids.difference([candidate_station]):
-        angles.add(angle(optical_target - candidate_station))
-    if len(angles) > best_count:
-        best_count = len(angles)
+        num = optical_target - candidate_station
+        angle = round(np.angle(num * 1j), ERROR) % (2 * np.pi)
+        heappush(field_of_view[angle], (np.absolute(num), optical_target))
+    if len(field_of_view) > best_count:
+        best_count = len(field_of_view)
+        best_field_of_view = field_of_view
         station = candidate_station
 
-field_of_view = defaultdict(lambda: [])
-asteroids.remove(station)
-for optical_target in asteroids:
-    num = optical_target - station
-    heappush(field_of_view[angle(num)], (np.absolute(num), optical_target))
-
 destroyed = []
-survivors = asteroids
-destruction_path = sorted(field_of_view.items())
+survivors = asteroids.difference([station])
+destruction_path = sorted(best_field_of_view.items())
 
 while len(survivors):
     for angle, beam in destruction_path:
