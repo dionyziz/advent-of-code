@@ -19,7 +19,7 @@ def bfs(s, t):
         visited.add(v)
         if v == t:
             return c
-        for w in adj[v].difference(visited):
+        for w in adj[v] - visited:
             q.append((w, c + 1))
 
 print(bfs("YOU", "SAN") - 2)
