@@ -1,13 +1,13 @@
+from collections import defaultdict
+
 with open('6.txt') as f:
     contents = f.read()
 
-adj = {}
+adj = defaultdict(lambda: [])
 
 for line in contents.split("\n"):
     if line != "":
         u, v = line.split(")")
-        if u not in adj:
-            adj[u] = []
         adj[u].append(v)
 
 def countDescendants(u):
