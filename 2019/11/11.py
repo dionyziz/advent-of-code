@@ -13,10 +13,10 @@ def paint(computer, color_at):
 
     while True:
         try:
-            computer.write_to(execution, color_at[location])
-            color_at[location] = computer.read_from(execution)
+            computer.write_to(color_at[location])
+            color_at[location] = computer.read_from()
             modified.add((int(location.real), int(location.imag)))
-            turn = computer.read_from(execution)
+            turn = computer.read_from()
             direction *= 1j
             direction *= turn * 2 - 1
             location += direction
