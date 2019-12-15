@@ -1,5 +1,6 @@
 from inspect import signature
 from collections import defaultdict, deque
+import copy
 
 OP_ADD = 1
 OP_MUL = 2
@@ -206,13 +207,16 @@ class Computer:
         else:
             raise 'Invalid memory mode for writing ' + str(mode)
 
-    def _init_memory(self):
+    def init(self):
+        self._ip = 0
+        self._ip_manual = False
         self.memory = defaultdict(lambda: 0)
         for i, instruction in enumerate(self._program):
             self.memory[i] = instruction
 
     def load(self, program):
         self._program = program
+        self.init()
 
     def load_file(self, filename):
         with open(filename) as f:
@@ -221,20 +225,21 @@ class Computer:
         code = list(map(int, code.split(',')))
         self.load(code)
 
-    def read_from(self, iter):
-        action = next(iter)
+    def read_from(self):
+        action = next(self._execution)
         assert(isinstance(action, IOOutputAction))
         return action.value
 
-    def write_to(self, iter, value):
-        action = next(iter)
+    def write_to(self, value):
+        action = next(self._execution)
         assert(isinstance(action, IOInputAction))
         action.value = value
 
     def execute(self):
-        self._ip = 0
-        self._ip_manual = False
-        self._init_memory()
+        self._execution = self._execute()
+        return self._execution
+
+    def _execute(self):
         while self._ip < len(self.memory):
             opcode = self.memory[self._ip]
             self._current_opcode = opcode
@@ -250,6 +255,13 @@ class Computer:
                 break
         else:
             raise EOFError('Reached program end without halting')
+
+    def save(self):
+        return [self._ip, copy.deepcopy(self.memory)]
+
+    def restore(self, state):
+        self._ip = state[0]
+        self.memory = defaultdict(lambda: 0, state[1])
 
     def run(self):
         for action in self.execute():
