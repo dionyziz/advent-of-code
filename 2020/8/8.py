@@ -4,7 +4,7 @@ with open('in.txt') as f:
   lines = f.read().splitlines()
 
 visited = set()
-acc, ip = 0, 0
+acc = ip = 0
 while ip not in visited:
   visited.add(ip)
   opcode, val = parse('{:w} {:d}', lines[ip])

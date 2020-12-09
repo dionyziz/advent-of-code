@@ -5,7 +5,7 @@ with open('in.txt') as f:
 
 def run(lines):
   visited = set()
-  acc, ip = 0, 0
+  acc = ip = 0
   while ip not in visited:
     visited.add(ip)
     if ip >= len(lines):
