@@ -2,16 +2,14 @@ from lark import Lark
 import re
 
 with open('in.txt') as f:
-  grammar, inputs = f.read().split('\n\n')
+  rules, inputs = f.read().split('\n\n')
 
-lgrammar = []
-for line in grammar.splitlines():
-  line = re.sub(r"(\d+)", r"s\1", line)
-  lgrammar.append(line)
-lgrammar.append('start: s0')
-lgrammar = '\n'.join(lgrammar)
+grammar = ['start: s0']
+for line in rules.splitlines():
+  grammar.append(re.sub(r'(\d+)', r's\1', line))
+grammar = '\n'.join(grammar)
 
-l = Lark(lgrammar)
+l = Lark(grammar)
 cnt = 0
 for input in inputs.splitlines():
   try:
