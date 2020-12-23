@@ -24,4 +24,4 @@ while True:
     break
   prev_board = board
 
-print(sum(Counter(line)['#'] for line in board))
+print(sum(line.count('#') for line in board))
