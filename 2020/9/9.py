@@ -1,6 +1,5 @@
 from collections import Counter
 from itertools import permutations
-import sys
 
 with open('in.txt') as f:
   lines = list(map(int, f.read().splitlines()))
