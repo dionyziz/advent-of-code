@@ -1,5 +1,5 @@
 with open('in.txt') as f:
-  fishes = map(int, f.read().splitlines().pop().split(','))
+  fishes = map(int, f.read().split(','))
 
 for i in range(80):
   new_fishes = []

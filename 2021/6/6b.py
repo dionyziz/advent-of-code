@@ -1,7 +1,7 @@
 from collections import Counter
 
 with open('in.txt') as f:
-  fishes = Counter(map(int, f.read().splitlines().pop().split(',')))
+  fishes = Counter(map(int, f.read().split(',')))
 
 for i in range(256):
   new_fishes = Counter()
