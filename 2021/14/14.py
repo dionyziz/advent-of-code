@@ -2,7 +2,7 @@ from collections import Counter
 
 with open('in.txt') as f:
   template, rules = f.read().split('\n\n')
-rules = rules[:-1]
+rules = rules.split('\n')[:-1]
 
 def step(str):
   ret = ''
@@ -13,7 +13,6 @@ def step(str):
   return ret
 
 apply = {}
-rules = rules.split('\n')
 for rule in rules:
   left, right = rule.split(' -> ')
   apply[left] = right

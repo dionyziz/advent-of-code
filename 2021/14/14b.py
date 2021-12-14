@@ -3,7 +3,7 @@ from itertools import pairwise
 
 with open('in.txt') as f:
   template, rules = f.read().split('\n\n')
-rules = rules[:-1]
+rules = rules.split('\n')[:-1]
 
 def step(parts):
   new_parts = Counter()
@@ -14,7 +14,6 @@ def step(parts):
   return new_parts
 
 apply = {}
-rules = rules.split('\n')
 for rule in rules:
   left, right = rule.split(' -> ')
   apply[tuple(left)] = right
