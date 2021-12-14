@@ -2,7 +2,6 @@ from collections import Counter
 
 with open('in.txt') as f:
   template, rules = f.read().split('\n\n')
-
 rules = rules[:-1]
 
 def step(str):
