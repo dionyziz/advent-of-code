@@ -5,8 +5,6 @@ from math import prod
 with open('small.txt') as f:
   lines = f.read().splitlines()
 
-dims = 3
-
 class Segment:
   def __init__(self, ends):
     self.ends = ends
