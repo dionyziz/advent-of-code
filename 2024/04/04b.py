@@ -8,20 +8,19 @@ def get_candidates(board, dx, dy):
   for i, line in enumerate(board):
     for j, _ in enumerate(line):
       candidate = ''
-      for k in range(4):
+      for k in range(3):
         if 0 <= i+k*dy < len(board) and 0 <= j+k*dx < len(line):
           candidate += board[i+k*dy][j+k*dx]
         else:
           break
       else:
-        candidates.append(candidate)
+        if candidate == 'MAS':
+          candidates.append((i + dy, j + dx))
 
   return candidates
 
 candidates = []
-for dx in (-1, 0, 1):
-  for dy in (-1, 0, 1):
-    if dx != 0 or dy != 0:
-      candidates += get_candidates(board, dx, dy)
+for dx, dy in ((-1, -1), (-1, 1), (1, -1), (1, 1)):
+  candidates += get_candidates(board, dx, dy)
 
-print(Counter(candidates)['XMAS'])
+print(len([c for c in Counter(candidates).most_common() if c[1] == 2]))
